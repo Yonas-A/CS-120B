@@ -10,7 +10,7 @@
  *               and pressed again to play the melody
  *      I acknowledge all content contained herein, excluding template or example
  *      code, is my own original work.
- *      Demo Link: <https://youtu.be/yajUhzDCDA4>
+ *      Demo Link: <https://youtu.be/UDZjTAmq7OA>
  */
 
 #include <avr/io.h>
@@ -59,9 +59,8 @@ void PWM_off() {
 //-----------------------------------------------------------------------------
 
 /*Define user variables and functions for this state machine here.*/
-static const double NOTE[] = {523.25, 261.63, 523.625, 349.23, 293.66,440.00};
-
-static const double TIME[] = {10, 13, 14, 8, 10, 13};
+static const double NOTE[] = {329.63, 392.00, 440.00, 493.88, 440.00, 440.0, 440.0, 392.00, 444.0};
+static const double TIME[] = {6, 4, 8, 3, 7, 3, 1, 2, 1};
 
 unsigned int i = 0;  // temporary variable to iterate over the arrays
 unsigned int cnt = 0;
@@ -86,13 +85,13 @@ Tick_melodyPlayer() {
             _state = _count;
             break;
         case _count:
-            if (i >= 6 && !A0) {  // if button released go to init
+            if (i >= 8 && !A0) {  // if button released go to init
                 _state = _init;
-            } else if (i >= 6 && A0) {  // if button still pressed go to wait
+            } else if (i >= 8 && A0) {  // if button still pressed go to wait
                 _state = _wait;
-            } else if (!(i >= 6) && cnt > 0) {
+            } else if (!(i >= 8) && cnt > 0) {
                 _state = _count;
-            } else if (!(i >= 6) && cnt == 0) {
+            } else if (!(i >= 8) && cnt == 0) {
                 _state = _play;
             }
             break;
@@ -119,7 +118,7 @@ Tick_melodyPlayer() {
         case _play:
             set_PWM(NOTE[i]);
             cnt = TIME[i];
-            if (i < 6)
+            if (i < 8)
                 i++;
             break;
         case _count:
@@ -139,7 +138,7 @@ int main() {
     DDRA = 0x00;  PORTA = 0xFF;  // Configure port A[7:0] pins as inputs
     DDRB = 0xFF;  PORTB = 0xBF;  // configure port B[7:0] pins as outputs, initialize to 0
 
-    const unsigned int ElapsedTime = 100;
+    const unsigned int ElapsedTime = 120;
 
     TimerSet(ElapsedTime);
     TimerOn();

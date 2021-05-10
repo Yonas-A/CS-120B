@@ -5,9 +5,17 @@
  *      Exercise Description: synch SM implementation of a system that outputs
  *               three different sounds with three different button presses. A0
  *               Button press on A0 outputs a different sound that both A1 and A2  
+ * 
+ *      NOTE: After an Endorsed suggestion from EDstem 
+ *            <https://edstem.org/us/courses/5172/discussion/428661>, I have 
+ *            my tick_scale function to hold the current scale if toggle was 
+ *            turned of while scaling. Forexample if scale is at E5 before toggle 
+ *            was turned off, it should still be at E5 when we turn toggle back on
+ * 
+ * 
  *      I acknowledge all content contained herein, excluding template or example
  *      code, is my own original work.
- *      Demo Link: <https://youtu.be/xrCCOCefOoY>
+ *      Demo Link: <https://youtu.be/wACQWTuYgSI>
  */
 
 #include <avr/io.h>
